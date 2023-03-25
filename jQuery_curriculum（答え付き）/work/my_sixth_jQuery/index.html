@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<input type="text" class="input" value="">
+<span class="lest-count">30</span>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+  const $input = $(".input");
+  const $lestCnt = $(".lest-count"); 
+  $input.on("keyup",function(){
+    const culcCnt = 30 - $(this).val().replace(/\s+/g,'').length;
+
+    $lestCnt.text(culcCnt);
+    if(culcCnt >= 0){
+      $lestCnt.removeClass("red");
+    } else{
+      $lestCnt.addClass("red");
+    }
+  });
+});
+// 今回やるのは文字数チェッカーです。
+// .input に文字を入力し、文字を入力した段階でその文字数に応じて .lest-count の値が減っていき、最大文字数である30文字以上入力すると .lest-count に .red クラスが追加されて文字色が赤くなり、30文字以内になると、.red クラスが外れ、文字色が元に戻る。（ちなみに改行は文字数に含まない。）
+// keyup 文字入力後に発火されるイベントです。
+// .replace(/\s+/g,'').length 改行を含まない文字数を取得します。
+// .val() input要素のvalueを取得します。
+</script>
+</body>
+</html>

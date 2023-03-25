@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1 class="u-mbm big">jQuery入門</h1>
+<h2 class="u-mbm hyper-big">コメント必ず読めよ！いっぱい書いたから！</h2>
+<div class="wrapper">
+    <div class="u-mbm btn" id="q1">q1の問題</div>
+    <div class="u-mbm btn" id="q2">q2の問題</div>
+    <div class="u-mbm btn" id="q3">q3の問題</div>
+    <div class="u-mbm btn" id="q4">q4の問題</div>
+    <div class="u-mbm btn" id="q5">q5の問題</div>
+    <div class="u-mbm btn" id="q6">q6の問題</div>
+    <ul class="u-mbm lists" id="q7">
+        <li>q7_1</li>
+        <li>q7_2</li>
+        <li>q7_3</li>
+        <li>q7_4</li>
+    </ul>
+    <div class="u-mbm btn" id="q8">q8の問題</div>
+    <div class="u-mbm btn" id="q9" data-text="これはdata属性ですよ2">q9の問題</div>
+    <ul class="u-mbm lists" id="q10">
+        <li>q10_1</li>
+        <li>q10_2</li>
+        <li>q10_3</li>
+    </ul>
+    <ul class="u-mbm lists" id="q11">
+        <li>q11_1</li>
+        <li>q11_2</li>
+        <li>q11_3</li>
+    </ul>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#q1").css("color","red");
+    
+    $("#q2").click(function() {
+        $(this).css("background-color","pink");
+    });
+    
+    $("#q3").click(fadeOut);
+    function fadeOut(){
+        $(this).fadeOut(2000);
+    };
+
+    $("#q4").click(function() {
+        $(this).prepend("q")
+               .append("題")
+               .before("DOMの前")
+               .after("DOMの後");
+    });
+
+    $("#q5").click(function () {
+        $(this).addClass("big")
+               .css("color","red");
+    });
+
+    $("#q6").click(function() {
+        $(this).animate({
+            "marginLeft": 100,
+            "marginTop": 100
+        }, 2000);
+    });
+
+    $("#q7").find("li").click(function() {
+        const targetNum =$(this).index();
+        console.log(targetNum);
+        alert(targetNum);
+    });
+
+    $("#q8").hover(
+        function() {
+            $(this).addClass("big");
+        },
+        function() {
+            $(this).removeClass("big");
+        }
+    );
+
+    $("#q9").click(function(){
+      const text = $(this).data("text");
+      console.log(text);
+    });
+
+
+    $("#q10").find("li").click(function() {
+        const num = $(this).index();
+        $("#q11").find("li").eq(num).addClass("big");
+    });
+});
+// 第1問　jQueryでid="q1"の要素の文字色を赤色にせよ。
+// 第2問　id="q2"の要素をクリックしたら背景色をピンクにせよ。
+// 第3問　id="q3"の要素をクリックしたら2秒かけてフェードアウトさせよ。
+// 第4問　id="q4"の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
+// 第5問　id="q5"の要素をクリックしたらこの要素にbigというクラスを付与せよ。
+// 第6問　id="q6"の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
+// 第7問　id="q7"の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
+// 第8問　id="q8"の要素をhoverしたらbigというクラスを付与し、hoverが外れたら、クラスを削除せよ。
+// 第9問　id="q9"の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
+// 第10問　id="q10"の子要素をクリックしたら、その要素のインデックスと等しいid="q11"の子要素にbigというクラスを追加せよ。
+</script>
+</body>
+</html>

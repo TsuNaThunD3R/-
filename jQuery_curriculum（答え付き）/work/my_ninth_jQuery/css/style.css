@@ -1,0 +1,23 @@
+.lists {
+    border: 10px #CCC solid;
+}
+.lists > li {
+    float: left;
+    width: 25%;
+    background-color: #EEE;
+    border-top: 2px #CCC solid;
+    border-right: 2px #CCC solid;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 75px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.lists > li:nth-child(-n + 4) {
+    border-top: none;
+}
+.lists > li:nth-child(4n) {
+    border-right: none;
+}

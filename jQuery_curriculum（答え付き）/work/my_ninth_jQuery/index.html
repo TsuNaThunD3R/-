@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <ul class="lists clearfix"></ul>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      const $listsUl = $(".lists");
+      const totalCard = 16;
+      let cardArray = [];
+      let listArray = [];
+      let firstCard = "";
+      let secondCard = "";
+      let $cardItem;
+      let isFirst = true;
+      
+      function operateCard() {
+        for(let i = 1; i <= totalCard/2; i++) {
+          cardArray.push(i,i);
+        }
+
+        cardArray.sort(function () {
+          return Math.random() - Math.random();
+        });
+
+        for(let i = 0; i < totalCard; i++) {
+          listArray.push(`<li class="close" data-num="${cardArray[i]}">?</li>`);
+        }
+        $listsUl.append(listArray);
+        $cardItem = $listsUl.find("li");
+      }
+      
+      // カードを開ける時の処理
+      function openCard(card) {
+        card.css("pointer-events","none").removeClass("close").text(card.data("num"));
+      }
+
+      // カードを閉じる時の処理
+      function closeCard(card) {
+        card.css("pointer-events","auto").addClass("close").text("?");
+      }
+
+      // クリアしたとき
+      function clearMessage() {
+        if ($(".close").length === 0) {
+          setTimeout(function(){
+            alert("Game Over");
+          },1500);       
+        } else {}
+      }
+
+      // ロック処理
+      function lockCard() {
+        $(".close").css("pointer-events","none");
+        setTimeout(function(){
+          $(".close").css("pointer-events","auto")
+        },1000);
+      }
+
+      // 1枚目と2枚目の比較
+      function compareCard() {
+        if (firstCard.data("num") === secondCard.data("num")) {
+        } else {
+          lockCard();
+          setTimeout(function() {
+            closeCard(firstCard);
+            closeCard(secondCard);
+          },1000);
+        }
+      }
+
+      //カード準備
+      operateCard();
+
+      //カードをめくる処理（クリック）
+      $cardItem.on("click",function() {
+        const $this = $(this);
+        if(isFirst) {
+          openCard($this);
+          firstCard = $this;
+          isFirst = false;
+        } else {
+          openCard($this);
+          secondCard = $this;
+          compareCard();
+          isFirst = true;
+        }
+        clearMessage();
+        });
+    });
+    // 今回やるのは神経衰弱です。
+    // 今までの課題と違い、ロジックっぽいロジックを書きます。JS書いてるんだなーって気持ちになります。
+    // まずゲームの流れを説明します。
+    //
+    // ①: 16枚のリストの中から "?" と書かれたものをひとつクリックする
+    // ②: その要素に書かれている "?" が "6" などの数字に変わる
+    // ③: もうひとつ"?"と書かれたものをクリックする
+    // ④: その要素に書かれている "?" が "6" などの数字に変わる
+    // ⑤: ②と④で表示された数字が一致している場合は、開いた数字はそのままで①に戻る。一致していない場合は1秒後に数字が "?" に戻り①にもどる。
+    // ⑥: 全ての要素が開かれたときにアラートで "Game Over"
+    //
+    // 以上が全体の流れです。
+    // ここからはプログラムの説明です。
+    // まず最初にやらなければいけないことは、16枚のリストを表示するです。
+    // ただ単純な配列であればfor文を用いれば、簡単につくることが出来ますが、今回作るのは "1~8までの数字を2つずつ" かつ "ランダム" にしないといけません。
+    // おそらくこの部分が一番の鬼門ですが、どうにかクリアしましょう。
+    // 配列さえ出来上がってしまえば、for文を使って <li> を変数に文字列でくっつけてあげましょう。 <li> 自体の中身は "?" にし、data属性に先ほど作った配列の値を入れてあげると今後楽になるかと思います。for文の中ではなく、外でappendしましょうね（ニッコリ
+    //
+    // 次はクリックイベントについて説明します。
+    // 流れの部分をよく読んでif文とか使って実装しましょう（適当
+    // ちなみに setTimeout などを使うことで1秒後に〜するなどは実装出来ます。
+    // クリックした要素は必ず変数に格納しましょう。こうすることで比較が非常に簡単です。
+    // 以上になります。10個の中で一番難しい"らしい"のですが、頑張ってクリアしましょう！
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+.swipe-photo {
+    position: relative;
+    width: 320px;
+    height: 240px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.swipe-photo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.swipe-photo-item {
+    float: left;
+}
+.swipe-photo-thumbnail {
+    width: 320px;
+    height: 240px;
+}

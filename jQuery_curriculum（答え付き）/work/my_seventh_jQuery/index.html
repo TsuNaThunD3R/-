@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="slider-wrap">
+        <div class="slider-area">
+            <ul class="slider-list clearfix">
+                <li><img src="img/1.jpg" alt=""></li>
+                <li><img src="img/2.jpg" alt=""></li>
+                <li><img src="img/3.jpg" alt=""></li>
+                <li><img src="img/4.jpg" alt=""></li>
+            </ul>
+            <button type="button" class="slider-ctrl-btn prev" data-ctrl="prev"></button>
+            <button type="button" class="slider-ctrl-btn next" data-ctrl="next"></button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+    const $sliderList = $(".slider-area").find(".slider-list");
+    const $sliderItem = $sliderList.find("li");
+    const $sliderButton = $(".slider-area").find(".slider-ctrl-btn");
+    const sliderWidth = $sliderItem.width();
+    const sliderLength = $sliderItem.length;
+    const lastCurrent = sliderLength - 1;
+    let sliderCurrent = 0;
+
+    function sliderMove() {
+        $sliderList.animate({left : sliderCurrent * - sliderWidth});
+    };
+
+    function goPrev() {
+        if (sliderCurrent === 0) {
+            sliderCurrent = lastCurrent;
+            sliderMove();
+        } else {
+            sliderCurrent--;
+            sliderMove();
+        }
+    };
+
+    function goNext() {
+        if (sliderCurrent === lastCurrent) {
+            sliderCurrent = 0;
+            sliderMove();
+        } else {
+            sliderCurrent++;
+            sliderMove();
+        }
+    };
+
+    $sliderButton.on("click", function() {
+        const buttonData = $(this).data("ctrl");
+        if (buttonData === "prev") {
+            goPrev();
+        } else if (buttonData === "next") {
+            goNext();
+        }
+    })
+});
+// 今回やるのはスライドショーです。
+// .animateを使い、slider-listのleftを-方向にすることでアニメーションを実現している。
+// 右方向は .next を押すと移動し、左方向は .prev を押すと移動する。また右端にいる状態で .next を押すと最初の位置に戻り、 左端にいる状態で .prev を押すと最後の位置に移動する。data属性にprev,nextを記述しているのでこちらを取得すると楽です。
+// ちなみアニメーションですが配列を用いてそれぞれのポジションを記憶させ、添字を用いてそのポジションに移動させるようにするととても楽です。
+// .animate({}) cssのプロパティを一定時間かけて変化させます。アニメーションです。
+// .data() 要素のdata属性を取得します。引数が2つある場合、セットします。
+// .width() 要素の幅を取得します。
+// .length 要素の個数を取得します。
+</script>
+</body>
+</html>

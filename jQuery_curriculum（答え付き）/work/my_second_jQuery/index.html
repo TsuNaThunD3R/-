@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1 class="u-mbm big">jQuery入門2(というよりjavascript基本文法)</h1>
+<h2 class="u-mbm hyper-big">コメント必ず読めよ！いっぱい書いたから！</h2>
+<div class="wrapper">
+    <div class="u-mbm btn" id="q1">q1の問題</div>
+    <div class="u-mbm btn" id="q2">q2の問題</div>
+    <div class="u-mbm btn" id="q3">q3の問題</div>
+    <div class="u-mbm btn" id="q4">q4の問題</div>
+    <div class="u-mbm btn" id="q5">q5の問題</div>
+    <div class="u-mbm btn" id="q6">q6の問題</div>
+    <div class="u-mbm btn" id="q7">q7の問題</div>
+    <div class="u-mbm btn" id="q8">q8の問題</div>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+  $("#q1").click(function(){
+    const myAge = 25;
+    if (myAge < 20){
+      alert("あなたは未成年です。");
+    } else {
+      alert("あなたは成人です。");
+    }
+  });
+
+  $("#q2").click(function(){
+    const text ="";
+    for(var i = 0; i < 10; i++){
+      text += i;
+    }
+    $(this).after(text);
+  });
+
+  $("#q3").click(function(){
+    const text ="";
+    for(i = 0; i < 10; i++){
+      if(i % 2 == 0 || i > 8){
+        text += i;
+      }
+    }
+    $(this).after(text);
+  });
+  
+  $("#q4").click(function(){
+    const Array =[];
+    for(i = 0; i < 10; i++) {
+          Array[i] = i - 10;
+    }
+    console.log(Array);
+  });
+
+  $("#q5").click(function(){
+    const myName= "小室佳貴";
+    console.log("HELLO," + myName + "! GOOD MORNING!");
+  });
+
+  $("#q6").click(function(){
+    const className = "big";
+          elem = "<div class='" + className + "u-mbm btn'>追加された要素</div>";
+    $(this).after(elem);
+  });
+
+  $("#q7").click(function(){
+    const href = location.href;
+          date = new Date;
+    console.log(href);
+    console.log(date);    
+  });
+
+  $("#q8").click(function(){
+    setTimeout(function(){
+      alert("小室佳貴");
+  },2000)
+  });
+
+});
+// 第1問　id="q1"の要素をクリックしたらmyAgeという変数に自分の年齢を書き、その値が20以上の場合、「あなたは成人です。」、20未満の場合、「あなたは未成年です。」という文言でアラートを出力せよ。
+// 第2問　id="q2"の要素をクリックしたらfor文を用いて、0123456789という文字列を作り、#q2の後にその文字列を挿入せよ。
+// 第3問　id="q3"の要素をクリックしたらfor文、if文を用いて、024689という文字列を作り、#q3の後にその文字列を挿入せよ。
+// 第4問　id="q4"の要素をクリックしたらfor文を用いて、[-10,-9,-8,-7,-6,-5,-4,-3,-2,-1]という配列をconsoleに出力せよ。
+// 第5問　id="q5"の要素をクリックしたらmyAgeという変数に自分の名前は書き、consoleで「HELLO, {自分の名前}! GOOD MORNING!」という文字列を出力せよ。
+// 第6問　id="q6"の要素をクリックしたらclassNameという変数にbigという文字列を挿入し、その変数を用いて、<div class='big u-mbm btn'>追加された要素</div>という文字列を作り、#q6の後にその文字列を挿入せよ。
+// 第7問　id="q7"の要素をクリックしたら今開いているファイル（index.html）のURLと日付をconsoleに出力せよ。
+// 第8問　id="q8"の要素をクリックしたら2秒後にアラートに自分の名前を出力せよ。
+</script>
+</body>
+</html>

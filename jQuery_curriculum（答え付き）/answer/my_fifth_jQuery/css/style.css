@@ -1,0 +1,13 @@
+.tooltip {
+    position: absolute;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 2px #CCC solid;
+}
+.tooltip-body {
+    position: relative;
+    line-height: 1.5;
+    margin: 20px;
+    cursor: pointer;
+}
