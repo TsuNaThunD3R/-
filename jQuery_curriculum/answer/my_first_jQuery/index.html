@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1 class="u-mbm big">jQuery入門</h1>
+<h2 class="u-mbm hyper-big">コメント必ず読めよ！いっぱい書いたから！</h2>
+<div class="wrapper">
+    <div class="u-mbm btn" id="q1">q1の問題</div>
+    <div class="u-mbm btn" id="q2">q2の問題</div>
+    <div class="u-mbm btn" id="q3">q3の問題</div>
+    <div class="u-mbm btn" id="q4">q4の問題</div>
+    <div class="u-mbm btn" id="q5">q5の問題</div>
+    <div class="u-mbm btn" id="q6">q6の問題</div>
+    <ul class="u-mbm lists" id="q7">
+        <li>q7_1</li>
+        <li>q7_2</li>
+        <li>q7_3</li>
+        <li>q7_4</li>
+    </ul>
+    <div class="u-mbm btn" id="q8">q8の問題</div>
+    <div class="u-mbm btn" id="q9" data-text="これはdata属性です">q9の問題</div>
+    <ul class="u-mbm lists" id="q10">
+        <li>q10_1</li>
+        <li>q10_2</li>
+        <li>q10_3</li>
+    </ul>
+    <ul class="u-mbm lists" id="q11">
+        <li>q11_1</li>
+        <li>q11_2</li>
+        <li>q11_3</li>
+    </ul>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+    // $(function() { });　DOMが準備されてからjQueryを実行するおまじない。
+    // jQueryを書くときはこの中に実際の処理を書くことになる。
+    $("#q1").css("color", "red");
+    // ちゃんと処理が実行されていれば<div id="q1">q1</div>の文字色が赤色になっているはず。
+    // $("#q1")　jQueryの効果を効かせたいDOMを$("")でくくる。
+    // $("#q1")　この中の#q1の部分を「セレクタ」と呼ぶ。
+    // idの場合は#,classの場合は.をつける。cssと一緒。
+    // .css("color", "red")　対象となっているDOMのcolorをredに変える。（今回はcolorだけど、cssで出来ることは全て出来る。）
+    // このように.〜と書くものを「メソッド」と呼ぶ。
+    $("#q2").click(function() {
+        $(this).css("background-color", "pink");
+    });
+    // <div id="q2">q2</div>をクリックした後に背景色が変わるはず。
+    // .click();　clickメソッドは()の中に関数を書くとクリックした後にその関数を実行するという処理をやってくれる。
+    // おいおい、関数ってなんだよ人もいると思うけど、後述するのでそれまで我慢。
+    // $(this)　これは超簡単に書くと、この記述の前に指定されたDOMを指定する。この場合$("#q2")のこと。
+    // .cssは割愛。
+    $("#q3").click(fadeOut);
+    function fadeOut() {
+        $(this).fadeOut(2000);
+    }
+    // <div id="q3">q3</div>をクリックした後に自身がフェードアウトするはず。
+    // function 関数名() { }　これが関数の雛形。「fadeOut」のような名前をつけて、その名前を呼び出す。（適当な名前じゃダメです）
+    // 別にこんな簡単な処理を関数化する必要はないじゃん！って思う人もいると思うけど、何回も同じ記述をする場合に面倒になるので、関数化するのは非常に重要になる。
+    // fadeOut() fadeOutメソッドはフェードアウトするメソッドである。問題なのは()内に3000という値が書かれているところである。
+    // click(),fadeOut()　どちらも()があり、そこに値とか関数を書いている。これを「引数」と呼ぶ。
+    // この引数と呼ばれるものが関数を柔軟なものにしてくれる。fadeOut()の中の2000は、ミリ秒を示しており、2秒かけてDOMが消える。10000でも良いし、10でもいいわけだ。必ず何秒で実行するという関数だと、ある場合においてでしか使えない。
+    $("#q4").click(function() {
+        $(this).prepend("前　")
+               .append("　後")
+               .before("DOMの前")
+               .after("DOMの後");
+    });
+    // クリックすればわかるはず。DOMの挿入位置をよく確認して下さい。
+    // なんだこの書き方はと思った人は「jQuery メソッドチェイン」でググってください。
+    $("#q5").click(function() {
+        $(this).addClass("big");
+    });
+    // addClass()　対象のDOMにクラスを追加するメソッドです。（引数のクラスに.をつけないので注意）
+    // 現場だとcss()よりもこちらを使うことの方が多い。なぜならば、css()よりもjavascript側の記述量が少なく、使い回しが効くためである。
+    $("#q6").click(function() {
+        $(this).animate({
+          "marginLeft": 100,
+          "marginTop": 100
+        }, 2000);
+    });
+    // animateメソッドはcssのプロパティを一定時間かけて変更するメソッドである。
+    // "marginLeft": 100,
+    // "marginTop": 100
+    // この部分でプロパティを定義し、コロンの後に値を書く。そしてカンマの後にミリ秒を書き、そのアニメーション全体の時間を決める。
+    // 実はこのanimateメソッドはよーく見ると引数を2つ持つメソッドなのです。
+    // .animate({〜}, 2000);　さっきも言ったように引数には関数や値を渡すことも出来るし、「{}」オブジェクトを渡すことも出来ます。
+    // オブジェクトは難しいので今は説明しませんが、「引数2つとること出来るんだー、ふーん」ぐらいに考えておいて下さい。（ちなみに関数を作る際に引数は何個でも作れます。）
+    $("#q7").find("li").click(function() {
+        var targetNum = $(this).index();
+        console.log(targetNum);
+        alert(targetNum);
+    });
+    // #q7内のli要素をクリックした際にその要素が何番目の要素かアラートとコンソールで教えてくれるはずです。
+    // find()　findメソッドは指定されたDOM要素から引数に渡された要素を（ここではli）を取ってくるメソッドです。
+    // index()　はその要素が何番目の要素か教えてくれるメソッドです。慣れないと理解しずらいのですが、最初の要素をクリックすると0という値が返ってきますが、それは正常な挙動です。
+    // var 〜　変数を定義する宣言です。ここでは$(this).index()で取得した値をtargetNumという変数に代入しています。この後にalertやconsole.logで使用するため、変数化しておくと値を使い回し出来るので非常に良い。
+    // console.log()　chrome developer toolのconsoleのタブに引数の値が出力されます。非常に重要です。
+    // alert() 引数の値をアラートとして表示します。これまた非常に重要です。
+    $("#q8").hover(
+        function() {
+            $(this).addClass("big");
+        },
+        function() {
+            $(this).removeClass("big");
+        }
+    );
+    // hover()　hoverメソッドは引数が1つの場合、2つの場合で挙動が異なる少し特殊な関数です。
+    // hover(関数)の場合はhoverした場合に関数を実行します。
+    // hover(関数, 関数)の場合はhoverした後に第一引数の関数がhoverした時に実行され、hoverが離れた時に第二引数を実行します。
+    // jQueryにはこういった特殊な関数もあるのでよく理解した上で使いましょう。
+    // もしスマートフォンでエミュレートしてる場合はhoverは実行されません。なぜならばスマートフォンにはhoverという概念はなく、touchstart, touchmove, touchendでイベントを設定します。詳しく知りたい人はググりましょう。
+    $("#q9").click(function() {
+        var text = $(this).data("text");
+        console.log(text);
+    });
+    // data() その要素のdata属性を取得もしくはセットするメソッド。
+    // DOMを見てもらうと data-text="これはdata属性です" といった記述がある。これはDOM自身に値を設定する方法でjQueryを使うことによって簡単に取得出来るのである。
+    // 取得方法は data("ハイフンの後の文字列(ここではnum)")で取得することが出来る。
+    // また上には書いていないが、$("DOM").data("hoge", "fuga")といった風に書くことによって、DOMのdata-hoge属性にfugaをセットすることが出来る。
+    // html的に書けば<div data-hoge="fuga"></div>です。
+    $("#q10").find("li").click(function() {
+        var num = $(this).index();
+        $("#q11").find("li").eq(num).addClass("big");
+    });
+    // .eq() DOM要素の引数の値に等しい番号のDOMを指定する。
+    // $(this).index()で取得された値（何番目）をeq()の引数に入れることによって、#q10と対応した#q11のDOMを取得出来る。
+    // ひとまずjQueryでよく使う重要なメソッドは教えたつもりだから、わかんなくなったらあとはググってくれ。
+});
+</script>
+</body>
+</html>

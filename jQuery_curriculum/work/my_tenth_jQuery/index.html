@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>api test</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="container">
+            <div class="header">
+                <p class="header__title">Search Books!</p>
+            </div>
+            <div class="search">
+                <div class="search__text">
+                    <input type="text" id="js-search-word" class="search__text__input" value="" placeholder="検索する">
+                </div>
+                <button id="js-search-button" class="search__btn">検索する</button>
+            </div>
+            <ul class="lists">
+                
+            </ul>
+        </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(function(){
+      const $searchWord= $("#js-search-word");
+      const $searchBtn= $("#js-search-button");
+      const $listsUl= $(".lists");
+      const notFound= "検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。";
+      let pageNum= 0;
+      let preWord= "";
+      let keyWord= "";
+
+      // 1回目 ⇒preWord と keyWordは不一致のため trueへ
+      // 2回目以降（前回と検索名称が被らない場合）⇒ trueへ
+      // 2回目以降（前回と検索名称が被る場合）⇒pageNumに+1,val()してelseへ
+      function searchButton() {
+        pageNum+= 1;
+        keyWord= $searchWord.val(); // js-search-buttonがクリックされたとき、検索した名前を取得。 val();
+        
+        if(preWord !== keyWord) {
+          $listsUl.empty();
+          pageNum= 1;
+          preWord= keyWord;        
+        }
+      }
+
+      // 検索が見つからないとき
+      function notFoundMessage() {
+        $(".message").remove();
+        $listsUl.before(`<div class="message">${notFound}</div>`);
+      }
+
+      // getメソッドによりdata（情報）を取得する　→　dataあるかないかの判断
+      function getApi() {
+        $.ajax({
+          url: "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404",
+          type: "GET",
+          datatype: "json",
+          data: {
+            applicationId: "1053309271580885189",
+            bookGenreId: "001",
+            page: pageNum,
+            keyword: keyWord,
+            hits: 20,
+          }
+        }).done(function(data) {
+            if(data.count > 0) {
+              $(".message").remove();
+              let itemArray = [];
+              for(let i = 0; i < data.hits; i++) {
+                itemArray.push(
+                  `<li class="lists__item">
+                     <div class="lists__item__inner">
+                       <a href="${data.Items[i].Item.itemUrl}" class="lists__item__link">
+                         <img src=${data.Items[i].Item.largeImageUrl} class="lists__item__img">
+                           <p class="lists__item__detail">作品名：　${data.Items[i].Item.title}</p>
+                           <p class="lists__item__detail">作者　：　${data.Items[i].Item.author}</p>
+                           <p class="lists__item__detail">出版社：　${data.Items[i].Item.publisherName}</p>
+                      </div>
+                  </li>`);
+              }
+              $listsUl.prepend(itemArray);
+            } else {
+              notFoundMessage();
+            }
+          });
+        }
+
+        $searchBtn.on("click",function() {
+            searchButton();
+            getApi();
+        });       
+    });
+    // 楽天ブックスの総合検索APIを使って製作してください。
+    // answerの挙動を良く見てね！
+    </script>
+</body>
+</html>

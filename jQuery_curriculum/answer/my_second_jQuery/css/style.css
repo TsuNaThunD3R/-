@@ -1,0 +1,29 @@
+.u-mbm {
+    margin-bottom: 10px;
+}
+.btn {
+    line-height: 40px;
+    border-radius: 10px;
+    width: 200px;
+    background-color: orange;
+    text-align: center;
+    color: #fff;
+}
+.lists > li {
+    text-align: center;
+    line-height: 30px;
+    width: 200px;
+    color: #fff;
+    background-color: pink;
+    border-bottom: 1px #fff solid;
+}
+.wrapper {
+    width: 200px;
+    margin: 0 auto;
+}
+.big {
+    font-size: 25px;
+}
+.hyper-big {
+    font-size: 30px;
+}
